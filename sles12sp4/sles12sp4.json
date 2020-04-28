@@ -1,0 +1,54 @@
+{
+  "variables": {
+        "image_name": "sles12sp4_bios"
+    },
+  "builders":
+  [
+    {
+      "type": "qemu",
+      "iso_url": "http://192.168.122.181/pub/iso/sles12sp4.iso",
+      "iso_checksum": "8c7a8a2cc9f08c4cbde93104de3b5cea",
+      "iso_checksum_type": "md5",
+      "output_directory": "output_{{user `image_name`}}",
+      "shutdown_command": "shutdown now",
+      "shutdown_timeout": "20s",
+      "disk_size": "10G",
+      "disk_compression": "true",
+      "format": "raw",
+      "accelerator": "kvm",
+      "headless": false,
+      "http_directory": "http",
+      "ssh_username": "root",
+      "ssh_password": "Suselinux012!",
+      "pause_before_connecting": "1m",
+      "ssh_timeout": "60m",
+      "vm_name": "sles12sp4_bios",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio",
+      "boot_wait": "10s",
+      "boot_command": [
+                "<down>",
+                "netsetup=dhcp autoyast=http://{{ .HTTPIP }}:{{ .HTTPPort }}/sles12sp4.xml<wait><wait>",
+                "<enter>"
+            ],
+      "qemuargs": [
+		[ "-m", "2048M" ],
+                ["-smp", "2"]
+            ]
+    
+    }
+  ],
+  "provisioners": [
+        {"type": "shell",
+         "scripts": [
+             "scripts/install-releases.sh",
+             "scripts/cleanup-machine-id.sh",
+             "scripts/lock-root.sh",
+             "scripts/add-issue.sh",
+             "scripts/pam-password.sh",
+             "scripts/add-after-local.sh"
+         ]
+        }
+    ]
+}
+

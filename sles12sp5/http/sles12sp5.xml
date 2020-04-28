@@ -1,0 +1,266 @@
+<?xml version="1.0"?>
+<!DOCTYPE profile>
+<profile xmlns="http://www.suse.com/1.0/yast2ns" xmlns:config="http://www.suse.com/1.0/configns">
+  <add-on>
+    <add_on_products config:type="list">
+      <listentry>
+	<media_url>http://192.168.122.147/repo/SUSE/Updates/SLE-SERVER/12-SP5/x86_64/update/</media_url>
+	<alias>SLE-Updates</alias>
+	<name>sle-updates</name>
+      </listentry>
+      <listentry>
+	<media_url>http://192.168.122.147/repo/SUSE/Products/SLE-SERVER/12-SP5/x86_64/product/</media_url>
+	<alias>SLE-Pool</alias>
+	<name>sle-pool</name>
+      </listentry>
+      <listentry>
+	<media_url>http://192.168.122.147/repo/SUSE/Products/SLE-Module-Public-Cloud/12/x86_64/product/</media_url>
+	<alias>Public-Cloud-Pool</alias>
+	<name>public-cloud-pool</name>
+      </listentry>
+      <listentry>
+	<media_url>http://192.168.122.147/repo/SUSE/Updates/SLE-Module-Public-Cloud/12/x86_64/update/</media_url>
+	<alias>Public-Cloud-Updates</alias>
+	<name>public-cloud-updates</name>
+      </listentry>
+      <listentry>
+	<media_url>http://192.168.122.180/repo/tmp-repo/sles12sp5/</media_url>
+	<alias>releases-rpm-repo</alias>
+	<name>releases-rpm-repo</name>
+      </listentry>
+      </add_on_products>
+  </add-on>
+  <bootloader>
+  <global>
+      <activate config:type="boolean">true</activate>
+      <timeout config:type="integer">3</timeout>
+  </global>
+ </bootloader>
+  <deploy_image>
+    <image_installation config:type="boolean">false</image_installation>
+  </deploy_image>
+  <general>
+     <self_update config:type="boolean">true</self_update>
+     <self_update_url>http://192.168.122.147/repo/SUSE/Updates/SLE-SERVER-INSTALLER/12-SP5/x86_64/update/</self_update_url>
+    <mode>
+      <confirm config:type="boolean">false</confirm>
+      <final_halt config:type="boolean">false</final_halt>
+      <final_reboot config:type="boolean">false</final_reboot>
+      <halt config:type="boolean">false</halt>
+      <second_stage config:type="boolean">true</second_stage>
+    </mode>
+    <proposals config:type="list"/>
+    <signature-handling>
+      <accept_file_without_checksum config:type="boolean">true</accept_file_without_checksum>
+      <accept_non_trusted_gpg_key config:type="boolean">true</accept_non_trusted_gpg_key>
+      <accept_unknown_gpg_key config:type="boolean">true</accept_unknown_gpg_key>
+      <accept_unsigned_file config:type="boolean">true</accept_unsigned_file>
+      <accept_verification_failed config:type="boolean">true</accept_verification_failed>
+      <import_gpg_key config:type="boolean">true</import_gpg_key>
+    </signature-handling>
+    <storage/>
+  </general>
+  <groups config:type="list"/>
+  <login_settings/>
+  <networking>
+   <interfaces config:type="list">
+        <interface>
+        <bootproto>dhcp</bootproto>
+        <device>eth0</device>
+        <startmode>auto</startmode>
+        </interface>
+    </interfaces>
+    <ipv6 config:type="boolean">true</ipv6>
+    <keep_install_network config:type="boolean">false</keep_install_network>
+    <managed config:type="boolean">false</managed>
+    <routing>
+      <ipv4_forward config:type="boolean">false</ipv4_forward>
+      <ipv6_forward config:type="boolean">false</ipv6_forward>
+    </routing>
+  </networking>
+  <partitioning config:type="list">
+    <drive>
+      <device>/dev/vda</device>      
+      <disklabel>gpt</disklabel>
+      <enable_snapshots config:type="boolean">true</enable_snapshots>
+      <initialize config:type="boolean">true</initialize>
+      <partitions config:type="list">
+        <partition>
+           <create config:type="boolean">true</create>
+           <format config:type="boolean">true</format>
+           <filesystem config:type="symbol">vfat</filesystem>
+           <mount>/boot/efi</mount>
+	   <partition_id config:type="integer">259</partition_id>
+           <partition_nr config:type="integer">1</partition_nr>
+	   <label>vfat</label>
+	   <mountby config:type="symbol">label</mountby>
+           <resize config:type="boolean">false</resize>
+           <size>200M</size>
+        </partition>
+        <partition>
+          <create config:type="boolean">true</create>
+          <crypt_fs config:type="boolean">false</crypt_fs>
+          <filesystem config:type="symbol">swap</filesystem>
+          <format config:type="boolean">true</format>
+          <fstopt>defaults</fstopt>
+          <loop_fs config:type="boolean">false</loop_fs>
+          <mount>swap</mount>
+	  <label>swap</label>
+          <mountby config:type="symbol">label</mountby>
+          <partition_id config:type="integer">130</partition_id>
+          <partition_nr config:type="integer">2</partition_nr>
+          <resize config:type="boolean">false</resize>
+          <size>2145549824</size>
+        </partition>
+	<partition>
+	    <create config:type="boolean">true</create>
+	    <crypt_fs config:type="boolean">false</crypt_fs>
+	    <filesystem config:type="symbol">btrfs</filesystem>
+	    <format config:type="boolean">true</format>
+	    <loop_fs config:type="boolean">false</loop_fs>
+	    <mount>/</mount>
+	    <label>rootdisk</label>
+	    <mountby config:type="symbol">label</mountby>
+	    <partition_id config:type="integer">131</partition_id>
+	    <partition_nr config:type="integer">2</partition_nr>
+	    <raid_options/>
+	    <resize config:type="boolean">false</resize>
+	    <size>max</size>
+         </partition>
+      </partitions>
+      <pesize/>
+      <type config:type="symbol">CT_DISK</type>
+      <use>all</use>
+    </drive>
+  </partitioning>
+  <kdump>
+    <!-- memory reservation (high and low) -->
+    <add_crash_kernel config:type="boolean">false</add_crash_kernel>
+    <crash_kernel config:type="list">
+      <listentry>72M,low</listentry>
+      <listentry>256M,high</listentry>
+    </crash_kernel>
+</kdump>
+  <software>
+    <products config:type="list">
+     <product>SLES</product>
+    </products>
+    <patterns config:type="list">
+      <pattern>base</pattern>
+    </patterns>
+    <packages config:type="list">
+      <package>openssh</package>
+      <package>vim</package>
+      <package>chrony</package>
+      <package>patch</package>
+      <package>less</package>
+      <package>autoyast2</package>
+      <package>autoyast2-installation</package>
+      <package>wget</package>
+      <package>cloud-init</package>
+      <package>cloud-init-config-suse</package>
+    </packages>
+  </software>
+  <timezone>
+    <hwclock>UTC</hwclock>
+    <timezone>Europe/Vienna</timezone>
+  </timezone>
+  <user_defaults>
+    <expire/>
+    <group>100</group>
+    <groups/>
+    <home>/home</home>
+    <inactive>-1</inactive>
+    <no_groups config:type="boolean">true</no_groups>
+    <shell>/bin/bash</shell>
+    <skel>/etc/skel</skel>
+    <umask>022</umask>
+  </user_defaults>
+  <users config:type="list">
+    <user>
+      <encrypted config:type="boolean">true</encrypted>
+      <user_password>$1$a9S/iu0d$U/o9Sa40hcLuNBy.7KF/D0</user_password>
+      <username>root</username>
+    </user>
+  </users>
+  <scripts>
+	  <init-scripts config:type="list">
+		  <script>
+			<filename>config_ntp.sh</filename>
+			<source>
+			<![CDATA[
+if [ -f /etc/ntp.conf ]; then
+        systemctl enable ntpd
+        for i in 0 1 2 3; do
+                echo "server $i.opensuse.pool.ntp.org iburst"
+	done >> /etc/ntp.conf
+fi
+			]]>
+			</source> 
+                  </script>
+		  <script>
+			<filename>clean_repos.sh</filename>
+			<source>
+			<![CDATA[
+zypper patch -y --auto-agree-with-licenses --updatestack-only
+zypper patch -y --auto-agree-with-licenses --with-optional --no-recommends
+rm -r /etc/zypp/repos.d/*.repo
+			]]>
+			</source> 
+                  </script>
+		  <script>
+			<filename>reset_machine.sh</filename>
+			<source>
+			<![CDATA[
+echo ** "reset machine settings"
+touch /etc/machine-id 
+rm -f /var/lib/zypp/AnonymousUniqueId 
+touch /var/lib/dbus/machine-id
+			]]>
+			</source> 
+                  </script>
+		  <script>
+			<filename>cloud-config.sh</filename>
+			<source>
+			<![CDATA[
+systemctl enable cloud-init-local
+systemctl enable cloud-config
+systemctl enable cloud-init
+systemctl enable cloud-final
+
+echo "disable_root: 0" >> /etc/cloud/cloud.cfg.d/80_root.cfg
+echo "ssh_pwauth: true" >> /etc/cloud/cloud.cfg.d/90_auth.cfg
+tee -a /etc/cloud/cloud.cfg.d/95_exoscale.cfg << END
+# Exoscale datasource
+datasource_list: ["Exoscale", "None"]
+
+# Make sure we have an entry to the hostname in
+# /etc/hosts so that sudo doesn't print warnings.
+manage_etc_hosts: true
+END
+tee -a /etc/cloud/cloud.cfg << END
+users:
+  - default
+  - name: sles
+    gecos: sles
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    ssh_import_id: sles
+    lock_passwd: false
+    ssh_authorized_keys:
+END
+			]]>
+			</source> 
+                  </script>
+		  <script>
+			<filename>enable_ssh.sh</filename>
+			<source>
+			<![CDATA[
+systemctl enable sshd
+systemctl start sshd
+			]]>
+			</source> 
+                  </script>
+          </init-scripts>
+  </scripts>
+</profile>

@@ -1,0 +1,52 @@
+{
+  "variables": {
+        "image_name": "sles15sp1_bios"
+    },
+  "builders":
+  [
+    {
+      "type": "qemu",
+      "iso_url": "http://192.168.122.181/pub/iso/SLE-15-SP1-Installer-DVD-x86_64-GM-DVD1.iso",
+      "iso_checksum": "f61a98405b233c62f5b8d48ac6c611d4",
+      "iso_checksum_type": "md5",
+      "output_directory": "output_{{user `image_name`}}",
+      "shutdown_command": "shutdown now",
+      "disk_size": "10G",
+      "disk_compression": "true",
+      "format": "raw",
+      "accelerator": "kvm",
+      "headless": false,
+      "http_directory": "http",
+      "ssh_username": "root",
+      "ssh_password": "Suselinux012!",
+      "pause_before_connecting": "1m",
+      "ssh_timeout": "60m",
+      "vm_name": "sles15sp1_bios",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio",
+      "boot_wait": "10s",
+      "boot_command": [
+                "<down>",
+                "netsetup=dhcp autoyast=http://{{ .HTTPIP }}:{{ .HTTPPort }}/sles15sp1.xml<wait>",
+                "<enter>"
+            ],
+      "qemuargs": [
+		[ "-m", "2048M" ],
+                ["-smp", "2"]
+            ]
+    
+    }
+  ],
+  "provisioners": [
+        {"type": "shell",
+         "scripts": [
+	     "scripts/install-releases.sh",
+             "scripts/cleanup-machine-id.sh",
+             "scripts/lock-root.sh",
+             "scripts/pam-password.sh",
+             "scripts/add-boot-local.sh"
+         ]
+        }
+    ]
+}
+
