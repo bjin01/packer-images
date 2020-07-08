@@ -24,3 +24,4 @@ if [ -f /usr/sbin/SUSEConnect ]; then
 fi
 END
 fi
+

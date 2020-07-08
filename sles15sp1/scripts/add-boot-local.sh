@@ -25,3 +25,4 @@ fi
 END
 
 chmod ugo+x /etc/init.d/boot.local
+
