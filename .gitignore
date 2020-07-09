@@ -1,4 +1,3 @@
 *.bin
 *.fd
 *backup*
-./sles1*/files/

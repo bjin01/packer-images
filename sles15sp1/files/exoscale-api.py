@@ -9,8 +9,8 @@ from urllib.request import urlopen
 from urllib.parse import quote, urlencode
 
 
-API_KEY = "EXOc06c3bbb964cef9bdf82349d"
-API_SECRET= "Uyo8BpMmfdmYpm6Shy8cD8e2T2FhLBbsw_T2ro0Qqys"
+API_KEY = ""
+API_SECRET= ""
 
 COMPUTE_ENDPOINT = "https://api.exoscale.ch/compute"
 search_list = ['id', 'displayname', 'templatename']
