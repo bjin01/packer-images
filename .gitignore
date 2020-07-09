@@ -1,4 +1,4 @@
 *.bin
 *.fd
 *backup*
-./*/files
+files/
