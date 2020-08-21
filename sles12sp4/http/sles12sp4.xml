@@ -152,9 +152,6 @@
       <package>wget</package>
       <package>cloud-init</package>
       <package>cloud-init-config-suse</package>
-      <package>cloud-regionsrv-client-plugin-azure</package>
-      <package>cloud-regionsrv-client</package>
-      <package>regionServiceClientConfigAzure</package>
     </packages>
   </software>
   <timezone>
